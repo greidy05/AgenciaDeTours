@@ -1,0 +1,201 @@
+﻿@model AgenciaDeTours.Models.Pai
+
+@{
+    ViewData["Title"] = "Crear Nuevo País";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-lg mt-4">
+                <div class="card-header bg-gradient-primary-to-secondary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-plus-circle me-2"></i> @ViewData["Title"]
+                    </h3>
+                </div>
+
+                <div class="card-body">
+                    <div class="alert alert-info d-flex align-items-center">
+                        <i class="fas fa-info-circle fa-2x me-3"></i>
+                        <div>
+                            <h5 class="alert-heading">Información Importante</h5>
+                            <p class="mb-0">El código ISO se generará automáticamente al guardar, basado en el nombre del país.</p>
+                        </div>
+                    </div>
+
+                    <form asp-action="Create" class="needs-validation" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row">
+                            <!-- Columna Izquierda -->
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <label asp-for="Nombre" class="form-label fw-bold">
+                                        <i class="fas fa-flag me-2"></i>Nombre del País
+                                    </label>
+                                    <input asp-for="Nombre" class="form-control form-control-lg"
+                                           placeholder="Ej: México, Argentina" required />
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese el nombre del país
+                                    </div>
+                                    <small class="text-muted">Este nombre determinará el código ISO generado</small>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">
+                                        <i class="fas fa-barcode me-2"></i>Código ISO
+                                    </label>
+                                    <div class="input-group">
+                                        <input class="form-control" value="(Auto-generado)" readonly />
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-magic text-primary"></i>
+                                        </span>
+                                    </div>
+                                    <small class="text-muted">Ejemplo: 'México' → MEX, 'Argentina' → ARG</small>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="IdiomaOficial" class="form-label fw-bold">
+                                        <i class="fas fa-language me-2"></i>Idioma Oficial
+                                    </label>
+                                    <input asp-for="IdiomaOficial" class="form-control"
+                                           placeholder="Ej: Español, Inglés" />
+                                    <span asp-validation-for="IdiomaOficial" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Columna Derecha -->
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <label asp-for="Moneda" class="form-label fw-bold">
+                                        <i class="fas fa-money-bill-wave me-2"></i>Moneda
+                                    </label>
+                                    <input asp-for="Moneda" class="form-control"
+                                           placeholder="Ej: Peso Mexicano, Dólar" />
+                                    <span asp-validation-for="Moneda" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="Continente" class="form-label fw-bold">
+                                        <i class="fas fa-globe-americas me-2"></i>Continente
+                                    </label>
+                                    <select asp-for="Continente" class="form-select">
+                                        <option value="">Seleccione un continente</option>
+                                        <option>América</option>
+                                        <option>Europa</option>
+                                        <option>Asia</option>
+                                        <option>África</option>
+                                        <option>Oceanía</option>
+                                        <option>Antártida</option>
+                                    </select>
+                                    <span asp-validation-for="Continente" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label asp-for="Descripcion" class="form-label fw-bold">
+                                        <i class="fas fa-align-left me-2"></i>Descripción
+                                    </label>
+                                    <textarea asp-for="Descripcion" class="form-control" rows="3"
+                                              placeholder="Breve descripción del país..."></textarea>
+                                    <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-4 me-md-2">
+                                <i class="fas fa-save me-2"></i> Crear País
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">
+                                <i class="fas fa-arrow-left me-2"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+        }
+
+        .bg-gradient-primary-to-secondary {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        }
+
+        .form-control-lg {
+            padding: 0.75rem 1rem;
+            font-size: 1.1rem;
+        }
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .alert-info {
+            background-color: #e7f5ff;
+            border-color: #d0ebff;
+            color: #1864ab;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+        }
+
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: #dc3545;
+        }
+
+        .was-validated .form-control:invalid ~ .invalid-feedback,
+        .was-validated .form-control:invalid ~ .invalid-tooltip {
+            display: block;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script>
+        // Validación en tiempo real
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}

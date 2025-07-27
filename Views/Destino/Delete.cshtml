@@ -1,0 +1,105 @@
+﻿@model AgenciaDeTours.Models.Destino
+
+@{
+    ViewData["Title"] = "Eliminar Destino";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-trash-alt me-2"></i>@ViewData["Title"]
+            </h4>
+        </div>
+        <div class="card-body">
+            <h5 class="text-danger mb-4">¿Estás seguro que deseas eliminar este destino turístico?</h5>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Nombre:</dt>
+                        <dd class="col-sm-8">@Model.Nombre</dd>
+
+                        <dt class="col-sm-4">País:</dt>
+                        <dd class="col-sm-8">@Model.Pais?.Nombre</dd>
+
+                        <dt class="col-sm-4">Duración:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.DuracionDias > 0)
+                            {
+                                <span>@Model.DuracionDias día(s)</span>
+                            }
+                            @if (Model.DuracionHoras > 0)
+                            {
+                                <span>, @Model.DuracionHoras hora(s)</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4">Clima:</dt>
+                        <dd class="col-sm-8">@Model.Clima</dd>
+
+                        <dt class="col-sm-4">Tipo:</dt>
+                        <dd class="col-sm-8">@Model.TipoDestino</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Atractivo:</dt>
+                        <dd class="col-sm-8">@Model.AtractivoPrincipal</dd>
+
+                        <dt class="col-sm-4">Actividades:</dt>
+                        <dd class="col-sm-8">@Model.Actividades</dd>
+
+                        <dt class="col-sm-4">Descripción:</dt>
+                        <dd class="col-sm-8">@Model.Descripcion</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="alert alert-warning mt-4">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Advertencia:</strong> Esta acción eliminará permanentemente el destino y podría afectar los tours asociados.
+            </div>
+
+            <form asp-action="Delete" class="mt-4">
+                <input type="hidden" asp-for="DestinoId" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt me-1"></i>Confirmar Eliminación
+                </button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">
+                    <i class="fas fa-arrow-left me-1"></i>Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 0.5rem;
+            border: none;
+        }
+
+        .card-header {
+            border-radius: 0.5rem 0.5rem 0 0 !important;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        dt {
+            font-weight: 500;
+            color: #6c757d;
+            padding-top: 0.5rem;
+        }
+
+        dd {
+            padding-top: 0.5rem;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+    </style>
+}

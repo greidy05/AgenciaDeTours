@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Menú Principal - Agencia de Tours";
+}
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <!-- Logo y título destacado -->
+        <div class="mb-3">
+            <i class="fas fa-plane-departure fa-4x text-primary"></i>
+        </div>
+        <h1 class="display-4 fw-bold text-primary">Agencia de Tours</h1>
+        <p class="lead text-muted">Administración completa de destinos turísticos</p>
+    </div>
+
+    <!-- Tarjetas de opciones -->
+    <div class="row justify-content-center g-4">
+        <!-- Tarjeta Países -->
+        <div class="col-md-5 col-lg-3">
+            <div class="card h-100 shadow-sm border-0 hover-effect">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-primary-light mb-3">
+                        <i class="fas fa-globe-americas fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Gestionar Países</h5>
+                    <p class="card-text text-muted small">Administra los países disponibles</p>
+                    <a href="/Pais" class="btn btn-primary mt-2 stretched-link">
+                        Acceder <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Destinos -->
+        <div class="col-md-5 col-lg-3">
+            <div class="card h-100 shadow-sm border-0 hover-effect">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-success-light mb-3">
+                        <i class="fas fa-map-marked-alt fa-2x text-success"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Gestionar Destinos</h5>
+                    <p class="card-text text-muted small">Administra los destinos turísticos</p>
+                    <a href="/Destino" class="btn btn-success mt-2 stretched-link">
+                        Acceder <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Tours -->
+        <div class="col-md-5 col-lg-3">
+            <div class="card h-100 shadow-sm border-0 hover-effect">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-info-light mb-3">
+                        <i class="fas fa-route fa-2x text-info"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Gestionar Tours</h5>
+                    <p class="card-text text-muted small">Administra los tours disponibles</p>
+                    <a href="/Tours" class="btn btn-info mt-2 stretched-link">
+                        Acceder <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Exportar -->
+        <div class="col-md-5 col-lg-3">
+            <div class="card h-100 shadow-sm border-0 hover-effect">
+                <div class="card-body text-center p-4">
+                    <div class="icon-circle bg-warning-light mb-3">
+                        <i class="fas fa-file-export fa-2x text-warning"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Exportar Tours</h5>
+                    <p class="card-text text-muted small">Exporta datos a formato CSV</p>
+                    <a href="/Exportar/ToursCsv" class="btn btn-warning mt-2 stretched-link">
+                        Exportar <i class="fas fa-download ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Estilos personalizados */
+    .hover-effect {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bg-primary-light {
+        background-color: rgba(13, 110, 253, 0.1);
+    }
+
+    .bg-success-light {
+        background-color: rgba(25, 135, 84, 0.1);
+    }
+
+    .bg-info-light {
+        background-color: rgba(13, 202, 240, 0.1);
+    }
+
+    .bg-warning-light {
+        background-color: rgba(255, 193, 7, 0.1);
+    }
+
+    .stretched-link::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+    }
+</style>

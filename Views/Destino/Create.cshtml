@@ -1,0 +1,250 @@
+﻿@model AgenciaDeTours.Models.Destino
+@{
+    ViewData["Title"] = "Crear Nuevo Destino";
+    var climas = new List<string> { "Tropical", "Seco", "Templado", "Continental", "Polar", "Montaña" };
+    var tiposDestino = new List<string> { "Playa", "Montaña", "Ciudad", "Rural", "Aventura", "Cultural", "Ecológico" };
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">
+                            <i class="fas fa-map-marked-alt me-2"></i>@ViewData["Title"]
+                        </h3>
+                        <a asp-action="Index" class="btn btn-sm btn-light">
+                            <i class="fas fa-arrow-left me-1"></i> Volver al listado
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            @TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Create" id="formDestino" class="needs-validation" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row g-3">
+                            <!-- Columna Izquierda -->
+                            <div class="col-md-6">
+                                <!-- Nombre -->
+                                <div class="mb-3">
+                                    <label asp-for="Nombre" class="form-label fw-bold">
+                                        <i class="fas fa-signature text-primary me-2"></i>Nombre del Destino
+                                    </label>
+                                    <input asp-for="Nombre" class="form-control" placeholder="Ej: Playa del Carmen" required />
+                                    <span asp-validation-for="Nombre" class="text-danger small"></span>
+                                </div>
+
+                                <!-- País -->
+                                <div class="mb-3">
+                                    <label asp-for="PaisId" class="form-label fw-bold">
+                                        <i class="fas fa-globe-americas text-primary me-2"></i>País
+                                    </label>
+                                    <select asp-for="PaisId" class="form-select" asp-items="ViewBag.Paises" required>
+                                        <option value="">-- Seleccione un país --</option>
+                                    </select>
+                                    <span asp-validation-for="PaisId" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Duración -->
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">
+                                        <i class="fas fa-clock text-primary me-2"></i>Duración del Tour
+                                    </label>
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light">
+                                                    <i class="fas fa-calendar-day text-primary"></i>
+                                                </span>
+                                                <input asp-for="DuracionDias" class="form-control" placeholder="Días" min="1" required />
+                                            </div>
+                                            <span asp-validation-for="DuracionDias" class="text-danger small"></span>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-light">
+                                                    <i class="fas fa-hourglass-half text-primary"></i>
+                                                </span>
+                                                <input asp-for="DuracionHoras" class="form-control" placeholder="Horas" min="0" max="23" required />
+                                            </div>
+                                            <span asp-validation-for="DuracionHoras" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Clima -->
+                                <div class="mb-3">
+                                    <label asp-for="Clima" class="form-label fw-bold">
+                                        <i class="fas fa-cloud-sun text-primary me-2"></i>Clima Predominante
+                                    </label>
+                                    <select asp-for="Clima" class="form-select">
+                                        <option value="">-- Seleccione el clima --</option>
+                                        @foreach (var clima in climas)
+                                        {
+                                            <option>@clima</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Clima" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Columna Derecha -->
+                            <div class="col-md-6">
+                                <!-- Tipo de Destino -->
+                                <div class="mb-3">
+                                    <label asp-for="TipoDestino" class="form-label fw-bold">
+                                        <i class="fas fa-tags text-primary me-2"></i>Tipo de Destino
+                                    </label>
+                                    <select asp-for="TipoDestino" class="form-select">
+                                        <option value="">-- Seleccione el tipo --</option>
+                                        @foreach (var tipo in tiposDestino)
+                                        {
+                                            <option>@tipo</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="TipoDestino" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Atractivo Principal -->
+                                <div class="mb-3">
+                                    <label asp-for="AtractivoPrincipal" class="form-label fw-bold">
+                                        <i class="fas fa-star text-primary me-2"></i>Atractivo Principal
+                                    </label>
+                                    <input asp-for="AtractivoPrincipal" class="form-control" placeholder="Ej: Gran Arrecife Maya" />
+                                    <span asp-validation-for="AtractivoPrincipal" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Actividades -->
+                                <div class="mb-3">
+                                    <label asp-for="Actividades" class="form-label fw-bold">
+                                        <i class="fas fa-running text-primary me-2"></i>Actividades Disponibles
+                                    </label>
+                                    <textarea asp-for="Actividades" class="form-control" rows="3" placeholder="Ej: Snorkel, Visitas culturales, Senderismo"></textarea>
+                                    <span asp-validation-for="Actividades" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="mb-4">
+                            <label asp-for="Descripcion" class="form-label fw-bold">
+                                <i class="fas fa-align-left text-primary me-2"></i>Descripción
+                            </label>
+                            <textarea asp-for="Descripcion" class="form-control" rows="4" placeholder="Describa el destino en detalle..."></textarea>
+                            <span asp-validation-for="Descripcion" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fas fa-save me-2"></i>Guardar Destino
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                                <i class="fas fa-times me-2"></i>Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            border-bottom: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 0.375rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #86b7fe;
+                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+            .btn-primary:hover {
+                background-color: #0b5ed7;
+                border-color: #0a58ca;
+            }
+
+        .alert {
+            border-radius: 0.375rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Validación personalizada para el select de país
+            $.validator.addMethod("valueNotEquals", function(value, element, arg) {
+                return arg !== value;
+            }, "Debe seleccionar un país");
+
+            $("#PaisId").rules("add", {
+                valueNotEquals: ""
+            });
+
+            // Validación de duración
+            $.validator.addMethod("minDuration", function(value, element) {
+                var days = parseInt($("#DuracionDias").val()) || 0;
+                var hours = parseInt($("#DuracionHoras").val()) || 0;
+                return days > 0 || hours > 0;
+            }, "La duración total debe ser al menos 1 día o 1 hora");
+
+            $("#DuracionDias, #DuracionHoras").rules("add", {
+                minDuration: true
+            });
+
+            // Deshabilitar el botón al enviar y mostrar spinner
+            $("#formDestino").submit(function() {
+                var submitBtn = $(this).find("button[type='submit']");
+                submitBtn.prop("disabled", true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i> Guardando...');
+            });
+
+            // Validación en tiempo real
+            $("input, select, textarea").on("blur", function() {
+                $(this).valid();
+            });
+        });
+    </script>
+}

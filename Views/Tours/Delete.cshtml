@@ -1,0 +1,88 @@
+﻿@model AgenciaDeTours.Models.Tour
+
+@{
+    ViewData["Title"] = "Eliminar Tour";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-trash-alt me-2"></i>@ViewData["Title"]
+            </h4>
+        </div>
+        <div class="card-body">
+            <h5 class="text-danger">¿Estás seguro que deseas eliminar este tour?</h5>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Nombre:</dt>
+                <dd class="col-sm-9">@Model.Nombre</dd>
+
+                <dt class="col-sm-3">País:</dt>
+                <dd class="col-sm-9">@Model.Pais?.Nombre</dd>
+
+                <dt class="col-sm-3">Destino:</dt>
+                <dd class="col-sm-9">@Model.Destino?.Nombre</dd>
+
+                <dt class="col-sm-3">Fecha:</dt>
+                <dd class="col-sm-9">@Model.Fecha.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-3">Hora:</dt>
+                <dd class="col-sm-9">@Model.Hora.ToString(@"hh\:mm")</dd>
+
+                <dt class="col-sm-3">Precio:</dt>
+                <dd class="col-sm-9">@Model.Precio.ToString("C2")</dd>
+
+                <dt class="col-sm-3">ITBIS:</dt>
+                <dd class="col-sm-9">@Model.Itbis.ToString("C2")</dd>
+
+                <dt class="col-sm-3">Duración:</dt>
+                <dd class="col-sm-9">@Model.DuracionTotalHoras horas</dd>
+
+                <dt class="col-sm-3">Fecha/Hora Fin:</dt>
+                <dd class="col-sm-9">@Model.FechaHoraFin.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                <dt class="col-sm-3">Estado:</dt>
+                <dd class="col-sm-9">
+                    <span class="badge @(Model.Estado == "Vigente" ? "bg-success" : "bg-secondary")">
+                        @Model.Estado
+                    </span>
+                </dd>
+            </dl>
+
+            <form asp-action="Delete" class="mt-4">
+                <input type="hidden" asp-for="TourId" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt me-1"></i>Eliminar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">
+                    <i class="fas fa-arrow-left me-1"></i>Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 0.5rem;
+        }
+
+        .card-header {
+            border-radius: 0.5rem 0.5rem 0 0 !important;
+            padding: 1.25rem 1.5rem;
+        }
+
+        dt {
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        .badge {
+            font-size: 0.85em;
+            font-weight: 500;
+            padding: 0.35em 0.65em;
+        }
+    </style>
+}

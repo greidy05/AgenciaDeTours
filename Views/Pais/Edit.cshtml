@@ -1,0 +1,101 @@
+﻿@model AgenciaDeTours.Models.Pai
+
+@{
+    ViewData["Title"] = "Editar País";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3><i class="fas fa-edit"></i> @ViewData["Title"]</h3>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+            <input type="hidden" asp-for="PaisId" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" placeholder="Nombre del país" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+             
+                    <div class="form-group">
+                        <label asp-for="IdiomaOficial" class="control-label"></label>
+                        <input asp-for="IdiomaOficial" class="form-control" placeholder="Idioma principal" />
+                        <span asp-validation-for="IdiomaOficial" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Moneda" class="control-label"></label>
+                        <input asp-for="Moneda" class="form-control" placeholder="Moneda oficial" />
+                        <span asp-validation-for="Moneda" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Continente" class="control-label"></label>
+                        <input asp-for="Continente" class="form-control" placeholder="Continente" />
+                        <span asp-validation-for="Continente" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Descripcion" class="control-label"></label>
+                        <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver al Listado
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            margin-top: 20px;
+            border: none;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+
+        .card-header {
+            border-radius: calc(0.35rem - 1px) calc(0.35rem - 1px) 0 0 !important;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <script>
+        // Convertir automáticamente a mayúsculas el código ISO
+        document.getElementById('CodigoIso').addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+    </script>
+}

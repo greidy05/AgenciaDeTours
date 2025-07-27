@@ -1,0 +1,213 @@
+﻿@model AgenciaDeTours.Models.Pai
+
+@{
+    ViewData["Title"] = "Detalles del País";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-lg border-0 rounded-lg mt-4">
+                <!-- Encabezado con imagen de fondo -->
+                <div class="card-header bg-gradient-primary-to-secondary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">
+                            <i class="fas fa-flag me-2"></i> @Model.Nombre
+                        </h3>
+                        <div>
+                            <span class="badge bg-white text-primary fs-6">
+                                <i class="fas fa-globe me-1"></i> @Model.Continente
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cuerpo principal -->
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Columna izquierda - Información básica -->
+                        <div class="col-md-6">
+                            <div class="country-detail-card mb-4">
+                                <h5 class="text-primary mb-4">
+                                    <i class="fas fa-info-circle me-2"></i>Información Básica
+                                </h5>
+
+                                <div class="detail-item">
+                                    <div class="icon-text">
+                                        <i class="fas fa-barcode text-muted"></i>
+                                        <span class="fw-bold">Código ISO:</span>
+                                    </div>
+                                    <span class="badge bg-primary fs-6">
+                                        @Model.CodigoIso
+                                    </span>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="icon-text">
+                                        <i class="fas fa-language text-muted"></i>
+                                        <span class="fw-bold">Idioma Oficial:</span>
+                                    </div>
+                                    <p>@Model.IdiomaOficial</p>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="icon-text">
+                                        <i class="fas fa-money-bill-wave text-muted"></i>
+                                        <span class="fw-bold">Moneda:</span>
+                                    </div>
+                                    <p>@Model.Moneda</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha - Descripción -->
+                        <div class="col-md-6">
+                            <div class="country-detail-card mb-4">
+                                <h5 class="text-primary mb-4">
+                                    <i class="fas fa-align-left me-2"></i>Descripción
+                                </h5>
+                                <div class="description-box p-3 bg-light rounded">
+                                    @if (!string.IsNullOrEmpty(Model.Descripcion))
+                                    {
+                                        @Model.Descripcion
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted fst-italic">No hay descripción disponible</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de destinos relacionados -->
+                    @if (Model.Destinos != null && Model.Destinos.Any())
+                    {
+                        <div class="mt-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="text-primary">
+                                    <i class="fas fa-map-marked-alt me-2"></i>Destinos Turísticos
+                                </h5>
+                                <span class="badge bg-primary">
+                                    @Model.Destinos.Count Destinos
+                                </span>
+                            </div>
+
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                @foreach (var destino in Model.Destinos)
+                                {
+                                    <div class="col">
+                                        <div class="card h-100 border-primary shadow-sm">
+                                            <div class="card-header bg-primary text-white">
+                                                <h6 class="mb-0">@destino.Nombre</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-2">
+                                                    <span class="badge bg-info text-dark me-2">
+                                                        <i class="fas fa-tag me-1"></i> @destino.TipoDestino
+                                                    </span>
+                                                    <span class="badge bg-secondary">
+                                                        <i class="fas fa-cloud-sun me-1"></i> @destino.Clima
+                                                    </span>
+                                                </div>
+                                                <p class="card-text">@destino.Descripcion</p>
+                                            </div>
+                                            <div class="card-footer bg-transparent">
+                                                <a href="/Destino/Details/@destino.DestinoId" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye me-1"></i> Ver Detalles
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mt-4">
+                            <i class="fas fa-info-circle me-2"></i>Este país no tiene destinos registrados.
+                        </div>
+                    }
+                </div>
+
+                <!-- Pie de tarjeta con acciones -->
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> Volver al Listado
+                            </a>
+                        </div>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@Model.PaisId" class="btn btn-primary me-2">
+                                <i class="fas fa-edit me-1"></i> Editar País
+                            </a>
+                            <a href="/Destino/Create?paisId=@Model.PaisId" class="btn btn-success">
+                                <i class="fas fa-plus me-1"></i> Añadir Destino
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+        }
+
+        .bg-gradient-primary-to-secondary {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        }
+
+        .country-detail-card {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            height: 100%;
+        }
+
+        .detail-item {
+            margin-bottom: 1.25rem;
+        }
+
+            .detail-item:last-child {
+                margin-bottom: 0;
+            }
+
+        .icon-text {
+            margin-bottom: 0.25rem;
+        }
+
+            .icon-text i {
+                width: 24px;
+                text-align: center;
+                margin-right: 8px;
+            }
+
+        .description-box {
+            min-height: 150px;
+            border-left: 4px solid #4e73df;
+        }
+
+        .badge {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+    </style>
+}
+
+@section Scripts {
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+}
